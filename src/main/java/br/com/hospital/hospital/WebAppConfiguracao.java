@@ -1,4 +1,4 @@
-package br.com.hospital.hospital.configuracao;
+package br.com.hospital.hospital;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,9 +13,7 @@ public class WebAppConfiguracao {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
-                // forward requests to /admin and /user to their index.html
-                registry.addViewController("/").setViewName(
-                        "forward:/index.htm");
+                registry.addViewController("/").setViewName("forward:/index.htm");
             }
         };
     }
