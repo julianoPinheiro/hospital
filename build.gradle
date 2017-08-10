@@ -19,8 +19,49 @@ sourceCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+	 maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    maven {
+        url 'http://jaspersoft.artifactoryonline.com/jaspersoft/third-party-ce-artifacts/'
+    }
+    maven {
+        url 'http://jasperreports.sourceforge.net/maven2'
+    }
+    maven {
+        url 'http://repository.jboss.org/maven2/'
+    }
 }
 
+springBoot {
+	executable = true
+	mainClass = 'br.com.hospital.HospitalApplication'
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+// https://github.com/iboyko/gradle-plugins/tree/master/jpamodelgen-plugin
+compileJava.options.compilerArgs += ["-proc:none"]
+
+// makes sure on each build that gulp is installed
+gulp_build.dependsOn 'installGulp'
+
+// processes your package.json before running gulp build
+gulp_build.dependsOn 'npmInstall'
+
+// runs "gulp build" as part of your gradle build
+compileJava.dependsOn gulp_build
+
+// compila os jrxml do jasperreports
+compileJava.dependsOn compileAllReports
+
+task packageWebapp {
+    doLast {
+        war {
+            webAppDirName = 'build/webapp'
+        }
+    }
+}
 
 dependencies {
 	compile('org.apache.cxf:cxf-spring-boot-starter-jaxrs:3.1.11')
