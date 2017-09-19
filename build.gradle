@@ -44,16 +44,16 @@ compileJava.options.encoding = 'UTF-8'
 compileJava.options.compilerArgs += ["-proc:none"]
 
 // makes sure on each build that gulp is installed
-gulp_build.dependsOn 'installGulp'
+//gulp_build.dependsOn 'installGulp'
 
 // processes your package.json before running gulp build
-gulp_build.dependsOn 'npmInstall'
+//gulp_build.dependsOn 'npmInstall'
 
 // runs "gulp build" as part of your gradle build
-compileJava.dependsOn gulp_build
+//compileJava.dependsOn gulp_build
 
 // compila os jrxml do jasperreports
-compileJava.dependsOn compileAllReports
+//compileJava.dependsOn compileAllReports
 
 task packageWebapp {
     doLast {
@@ -68,5 +68,6 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-jersey')
 	compile group: 'org.postgresql', name: 'postgresql', version: '9.4.1212'
+	compile group: 'net.sourceforge.barbecue', name: 'barbecue', version: '1.5-beta1'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
